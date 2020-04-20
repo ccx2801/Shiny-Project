@@ -1,0 +1,22 @@
+library(shiny)
+library(ggplot2)
+
+ui <- fluidPage(
+    titlePanel("Tooth Growth"),
+    helpText("Question 1:Does tooth growth varied by drinking different liquid?"),
+    helpText("Question 2: Does tooth growth varied by drinking differnt amount of liquid?"),
+    helpText("Respond Variable: tooth growth = 'len'"),
+    helpText("Factor 1:supp= Orange Juice (OJ), ascorbic acid(VC)"),
+    helpText("Factor 2:dose = 0.5 dose, 1 dose, 2 dose"),
+    selectInput("Factors","Factors",choices = setdiff(names(ToothGrowth),"len")),
+    plotOutput("myplot"))
+
+server <- function(input, output, session) {
+    
+    output$myplot <- renderPlot({
+        m <- paste0('len','~',input$Factors)
+        boxplot(as.formula(m) , data=ToothGrowth)
+    })
+}
+
+shinyApp(ui, server)
