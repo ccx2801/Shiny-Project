@@ -1,1 +1,3 @@
-This is a test for shiny application with "babynames" dataset, which is a built_in dataset from R.
+Shiny application web for tooth_growth project:
+
+https://congzhang.shinyapps.io/Tooth_Growth/
