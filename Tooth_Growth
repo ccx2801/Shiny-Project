@@ -2,29 +2,31 @@ library(shiny)
 library(ggplot2)
 
 ui <- pageWithSidebar(
-  headerPanel("Tooth Growth Research"),
-  sidebarPanel(
-    h3("Background"),
-    helpText("Scientists wanted to find out factors asscoiated with Guinea
+    headerPanel("Tooth Growth Research"),
+    sidebarPanel(
+        h3("Background"),
+        helpText("Scientists wanted to find out factors asscoiated with Guinea
             pig's tooth growth. It is hypothesized that different kinds of liquid
             and amount of liquid are asscoiated with tooth growth. The app is used to visualize
             the research reults."),
-    h3("Research Questions"),
-    helpText("1:Does tooth growth varied by drinking different liquid?"),
-    helpText("2: Does tooth growth varied by drinking differnt amount of liquid?"),
-    selectInput("Factors","Factors",choices = setdiff(names(ToothGrowth),"len")),
-  ),
-  mainPanel(
-    h3("Research Results"),
-    plotOutput("myplot"))
+        h3("Research Questions"),
+        helpText("1:Does tooth growth varied by drinking different liquid?"),
+        helpText("2: Does tooth growth varied by drinking differnt amount of liquid?"),
+        helpText("Factor 1:supp= Orange Juice (OJ), ascorbic acid(VC)"),
+        helpText("Factor 2:dose = 0.5 dose, 1 dose, 2 dose"),
+        selectInput("Factors","Factors",choices = setdiff(names(ToothGrowth),"len")),
+    ),
+    mainPanel(
+        h3("Research Results"),
+        plotOutput("myplot"))
 )
 
 server <- function(input, output) {
-  output$myplot <- renderPlot({
-    m <- paste0('len','~',input$Factors)
-    boxplot(as.formula(m) , data=ToothGrowth, col = "deepskyblue",
-            border = "dimgray")
-  })
+    output$myplot <- renderPlot({
+        m <- paste0('len','~',input$Factors)
+        boxplot(as.formula(m) , data=ToothGrowth, col = "deepskyblue",
+                border = "dimgray")
+    })
 }
 
 shinyApp(ui, server)
